@@ -30,7 +30,7 @@ Perfect for pentesters doing Kerberos-based operations where precise time alignm
 ### **Bash Version**
 
 ```bash
-sudo ./timefix <IP>
+sudo ./fixtime <IP>
 ```
 
 Example:
