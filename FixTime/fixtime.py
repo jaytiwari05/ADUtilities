@@ -16,7 +16,7 @@ args = parser.parse_args()
 def get_date():
     print("[*] Fetching time")
     try:
-        r = requests.get(args.url + "/:5985/WSMAN")
+        r = requests.get(args.url + ":5985/WSMAN")
         date_header = r.headers.get("Date")
         time = date_header.split()[4]
         if time:
