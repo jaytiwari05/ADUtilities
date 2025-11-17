@@ -79,7 +79,7 @@ def find_deleted_objects(args):
             controls= [
                 ('1.2.840.113556.1.4.417', True, None)
             ],
-            paged_size = 5,
+            paged_size = args.page_size if args.page_size else 10,
             generator=False
     )
         if not entry_list:
@@ -87,6 +87,7 @@ def find_deleted_objects(args):
             sys.exit()
         else:
             print("[*] Deleted user(s) found\r\t")
+            data = []
             for entry in entry_list:
                 attrs = entry.get('attributes')
                 if not attrs:
@@ -95,7 +96,7 @@ def find_deleted_objects(args):
                 ou = attrs.get('lastKnownParent')
                 sam = attrs.get('sAMAccountName')
                 objectclass = attrs.get('objectClass')[3]
-                data = [[sam, guid, ou, objectclass]]
+                data.append([sam, guid, ou, objectclass])
         headers = ['username', 'GUID', 'OU', 'objectClass']
         print(tabulate(data, headers=headers, tablefmt='grid'))
     except Exception as e:
@@ -167,9 +168,7 @@ def restore_deleted_objects(args):
             attributes = ['distinguishedName'],
             controls= [
                 ('1.2.840.113556.1.4.417', True, None)
-            ],
-            paged_size = 5,
-            generator=False
+            ]
     )
             if not entry_list:
                 print("[*] Could not find an object with the supplied GUID")
@@ -264,6 +263,7 @@ python3 resurrect.py find --domain example.com --username admin --ldaps --target
         help='Restore Deleted Objects to their respective OU'
     )
     add_common_args(find_parser)
+    find_parser.add_argument('--page-size', required=False, default=10, type=int, help='Number of results per page (default 10)')
     find_parser.set_defaults(func=find_deleted_objects)
 
 
