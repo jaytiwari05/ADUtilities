@@ -1,6 +1,5 @@
-
+# Resurrect
 A powerful Active Directory tombstone recovery tool for finding and restoring deleted users and computers.
-
 
 
 # Overview
