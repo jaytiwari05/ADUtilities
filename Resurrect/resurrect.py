@@ -96,7 +96,7 @@ def find_deleted_objects(args):
                 sam = attrs.get('sAMAccountName')
                 objectclass = attrs.get('objectClass')[3]
                 data = [[sam, guid, ou, objectclass]]
-        headers = ['username', 'GUID', 'OU', 'objectClass', 'DN']
+        headers = ['username', 'GUID', 'OU', 'objectClass']
         print(tabulate(data, headers=headers, tablefmt='grid'))
     except Exception as e:
         print("[-] An error has occured", e)
