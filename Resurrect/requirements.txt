@@ -1,2 +1,3 @@
 tabulate
 ldap3
+impacket

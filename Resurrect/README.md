@@ -14,7 +14,7 @@ Resurrect is a Python-based tool designed to interact with Active Directory's De
 
 - **LDAPS Support** - Secure LDAP over SSL/TLS (port 636)
 - **Pass-The-Hash** - Authenticate using NTLM hashes without plaintext passwords
-
+- **KERBEROS SUPPORT** - Authentication with Kerberos 
 
 
 ## 🔍 Object Discovery
@@ -67,6 +67,11 @@ python3 resurrect.py find --domain example.com --username admin \
 python3 resurrect.py find --domain example.com --username admin \
   --hash '8846f7eaee8fb117ad06bdd830b7586c' \ 
   --target 10.10.11.72 --ldaps
+
+
+python3 resurrect.py find --domain example.com --username admin \
+-k --dc-host dc.example.com  --ldaps
+
 ```
 
 
@@ -83,6 +88,14 @@ python3 resurrect.py restore --domain example.com --username admin \
   --hash '149e0ed1f84c8fd4ecb11a9c2ab7af2b' --target 10.10.11.72 --ldaps \
   --guid "f88369c8-86a2-4a7f-a56c-9c15edd7d1e3" \
   --ou "OU=IT,OU=Users,DC=example,DC=com"
+
+
+  python3 resurrect.py restore --domain example.com --username admin \
+  -k  --dc-host dc.example.com --ldaps \
+  --guid "f88369c8-86a2-4a7f-a56c-9c15edd7d1e3" \
+  --ou "OU=IT,OU=Users,DC=example,DC=com"
+
+
 ```
 
 
@@ -136,7 +149,7 @@ python3 resurrect.py restore --domain example.com --username admin \
 
 ## TODO
 
-- [ ]  **Kerberos Support** - Add Kerberos authentication as an alternative to NTLM
+- [x]  **Kerberos Support** - Add Kerberos authentication as an alternative to NTLM
 - [ ]  Export deleted objects to JSON/CSV
 - [ ]  Find objects by their sAMAccountName
 - [ ] Automatic Restoration to OUs
